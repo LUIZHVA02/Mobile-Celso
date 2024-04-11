@@ -3,6 +3,7 @@ package br.senai.sp.jandira.mytrips.screens
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -418,7 +419,7 @@ fun TelaCadastro(controleDeNavegacao: NavHostController) {
                             ) {
                                 Button(
                                     onClick = {
-//                                              controleDeNavegacao.navigate("Home")
+                                              controleDeNavegacao.navigate("Home")
                                     },
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -467,7 +468,10 @@ fun TelaCadastro(controleDeNavegacao: NavHostController) {
                                     fontStyle = FontStyle.Normal,
                                     fontWeight = FontWeight.Bold,
                                     color = Color(0xffCF06F0),
-                                    text = "Sign in!"
+                                    text = "Sign in!",
+                                    modifier = Modifier.clickable {
+                                        controleDeNavegacao.navigate("Login")
+                                    }
                                 )
                             }
                         }
