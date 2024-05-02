@@ -30,6 +30,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -95,7 +96,7 @@ fun TelaLogin(controleDeNavegacao: NavHostController) {
                     fontStyle = FontStyle.Normal,
                     fontWeight = FontWeight.Bold,
                     color = Color(0xffCF06F0),
-                    text = "Login"
+                    text = stringResource(id = R.string.login)
                 )
                 Text(
                     fontFamily = FontFamily.Default,
@@ -103,7 +104,7 @@ fun TelaLogin(controleDeNavegacao: NavHostController) {
                     fontStyle = FontStyle.Normal,
                     fontWeight = FontWeight.Bold,
                     color = Color(0xffA09C9C),
-                    text = "Please sign in to continue."
+                    text = stringResource(id = R.string.sign_in_message)
                 )
             }
 
@@ -156,7 +157,7 @@ fun TelaLogin(controleDeNavegacao: NavHostController) {
                                     fontSize = 20.sp,
                                     fontStyle = FontStyle.Normal,
                                     fontWeight = FontWeight.Light,
-                                    text = "Email"
+                                    text = stringResource(id = R.string.user_email)
                                 )
                             },
                             leadingIcon = {
@@ -204,7 +205,7 @@ fun TelaLogin(controleDeNavegacao: NavHostController) {
                                     fontSize = 20.sp,
                                     fontStyle = FontStyle.Normal,
                                     fontWeight = FontWeight.Light,
-                                    text = "Senha"
+                                    text = stringResource(id = R.string.user_password)
                                 )
                             },
                             leadingIcon = {
@@ -263,7 +264,7 @@ fun TelaLogin(controleDeNavegacao: NavHostController) {
                                     fontSize = 24.sp,
                                     fontStyle = FontStyle.Normal,
                                     fontWeight = FontWeight.Bold,
-                                    text = "Sign in"
+                                    text = stringResource(id = R.string.sign_in)
                                 )
                                 Card(
                                     modifier = Modifier

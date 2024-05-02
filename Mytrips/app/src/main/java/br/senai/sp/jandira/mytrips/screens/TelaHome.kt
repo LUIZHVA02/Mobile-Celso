@@ -15,13 +15,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.rounded.BeachAccess
 import androidx.compose.material.icons.rounded.DownhillSkiing
-import androidx.compose.material.icons.rounded.Snowboarding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
@@ -34,6 +34,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -46,19 +47,33 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.toLowerCase
+import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavHostController
 import br.senai.sp.jandira.mytrips.R
+import br.senai.sp.jandira.mytrips.model.Viagem
+import br.senai.sp.jandira.mytrips.repository.CateroriaRepository
+import br.senai.sp.jandira.mytrips.repository.ViagemRepository
 import br.senai.sp.jandira.mytrips.ui.theme.MyTripsTheme
+import br.senai.sp.jandira.mytrips.utils.encurtartarData
+import br.senai.sp.jandira.mytrips.utils.tratarData
 
 @Composable
 fun TelaHome() {
     var pesquisaHomeState = remember {
         mutableStateOf("")
     }
+//    var viagensState = remember {
+//        mutableStateOf(ViagemRepository().listarTodasAsViagens().)
+//    }
+
+
+    val viagens = ViagemRepository().listarTodasAsViagens()
+    var categorias = CateroriaRepository().listarCategorias()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -190,41 +205,7 @@ fun TelaHome() {
             LazyRow(
                 modifier = Modifier.fillMaxWidth()
             ) {
-                items(2) {
-                    Column(
-                        modifier = Modifier
-                            .height(90.dp)
-                            .width(120.dp)
-                            .background(
-                                color = Color(0xffCF06F0),
-                                shape = RoundedCornerShape(20.dp)
-                            ),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                        Card(
-                            modifier = Modifier
-                                .height(50.dp)
-                                .width(50.dp),
-                            colors = CardDefaults.cardColors(Color(0x00FFFFFF)),
-                            shape = CircleShape
-                        ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.montanha_branca),
-                                contentDescription = "",
-                                contentScale = ContentScale.Crop
-                            )
-                        }
-                        Text(
-                            fontFamily = FontFamily.Default,
-                            fontSize = 20.sp,
-                            fontStyle = FontStyle.Normal,
-                            fontWeight = FontWeight.Normal,
-                            color = Color.White,
-                            text = "Montain"
-                        )
-                    }
-                    Spacer(modifier = Modifier.width(8.dp))
+                items(categorias) {
                     Column(
                         modifier = Modifier
                             .height(90.dp)
@@ -245,7 +226,7 @@ fun TelaHome() {
                         ) {
                             Icon(
 
-                                Icons.Rounded.DownhillSkiing,
+                                it.icon!!,
                                 contentDescription = "",
                                 modifier = Modifier
                                     .height(50.dp)
@@ -259,44 +240,7 @@ fun TelaHome() {
                             fontStyle = FontStyle.Normal,
                             fontWeight = FontWeight.Normal,
                             color = Color.White,
-                            text = "Snow"
-                        )
-                    }
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Column(
-                        modifier = Modifier
-                            .height(90.dp)
-                            .width(120.dp)
-                            .background(
-                                color = Color(0xffCF06F0),
-                                shape = RoundedCornerShape(20.dp)
-                            ),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                        Card(
-                            modifier = Modifier
-                                .height(50.dp)
-                                .width(50.dp),
-                            colors = CardDefaults.cardColors(Color(0x00FFFFFF)),
-                            shape = CircleShape
-                        ) {
-                            Icon(
-                                Icons.Rounded.BeachAccess,
-                                contentDescription = "",
-                                modifier = Modifier
-                                    .height(50.dp)
-                                    .width(50.dp),
-                                tint = Color.White
-                            )
-                        }
-                        Text(
-                            fontFamily = FontFamily.Default,
-                            fontSize = 20.sp,
-                            fontStyle = FontStyle.Normal,
-                            fontWeight = FontWeight.Normal,
-                            color = Color.White,
-                            text = "Beach"
+                            text = it.nome
                         )
                     }
                     Spacer(modifier = Modifier.width(8.dp))
@@ -304,14 +248,41 @@ fun TelaHome() {
             }
         }
 
-        TextField(
-            value = "",
-            onValueChange = {},
+        OutlinedTextField(
+            value = pesquisaHomeState.value,
+            onValueChange = {
+                pesquisaHomeState.value = it
+            },
             modifier = Modifier
                 .width(360.dp)
                 .height(64.dp),
+            shape = RoundedCornerShape(20.dp),
             trailingIcon = {
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = {
+                    viagens.forEach(){
+                        if (
+                                pesquisaHomeState.value == it.id.toString() ||
+                                pesquisaHomeState.value.equals(it.destino, ignoreCase = true) ||
+                                pesquisaHomeState.value.toUpperCase() in it.descricao.toUpperCase()||
+
+                                pesquisaHomeState.value == it.dataChegada.toString() ||
+                                pesquisaHomeState.value == it.dataChegada.dayOfMonth.toString()||
+                                pesquisaHomeState.value.toUpperCase() == it.dataChegada.month.toString()||
+                                pesquisaHomeState.value == it.dataChegada.year.toString() ||
+
+                                pesquisaHomeState.value == it.dataPartida.toString() ||
+                                pesquisaHomeState.value == it.dataPartida.dayOfMonth.toString()||
+                                pesquisaHomeState.value.toUpperCase() == it.dataPartida.month.toString()||
+                                pesquisaHomeState.value == it.dataPartida.year.toString()
+                            ){
+                            println("${it.id}")
+                            println("${it.destino}")
+                            println("${it.descricao}")
+                            println("${tratarData(it.dataChegada)}")
+                            println("${tratarData(it.dataPartida)}")
+                        }
+                    }
+                }) {
                     Icon(
                         imageVector = Icons.Default.Search,
                         contentDescription = "Botão de Busca",
@@ -329,17 +300,21 @@ fun TelaHome() {
                     color = Color(0xFFA09C9C)
                 )
             },
-            colors = TextFieldDefaults.colors(
+            colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = Color(0xBEffffff),
                 unfocusedContainerColor = Color(0xBEFFFFFF),
+                unfocusedBorderColor = Color(0xBEffffff),
+                focusedBorderColor = Color(0xBEffffff)
+
             )
         )
         Column (
             modifier = Modifier
-                .width(360.dp)
+                .fillMaxWidth()
                 .height(300.dp)
         ){
             Text(
+                modifier = Modifier.padding(horizontal = 16.dp),
                 fontFamily = FontFamily.Default,
                 fontSize = 20.sp,
                 fontStyle = FontStyle.Normal,
@@ -347,79 +322,97 @@ fun TelaHome() {
                 color = Color(0xff565454),
                 text = "Past Trips"
             )
+            Spacer(modifier = Modifier.height(8.dp))
             LazyColumn(modifier = Modifier
                 .fillMaxSize()){
-                items(1){
-                    Column (
+                items(viagens){
+
+
+                    Card (
                         modifier = Modifier
-                            .width(360.dp)
-                            .height(220.dp)
+                            .fillMaxWidth()
+                            .padding(
+                                horizontal = 16.dp,
+                                vertical = 4.dp
+                            )
                             .shadow(
                                 5.dp,
-                                shape = RoundedCornerShape(15.dp))
+                                shape = RoundedCornerShape(15.dp)
+                            )
                             .background(
                                 color = Color.White
                             ),
-                        verticalArrangement = Arrangement.SpaceEvenly,
-                        horizontalAlignment = Alignment.CenterHorizontally
                     ){
-                        Card (
-                            modifier = Modifier
-                                .width(340.dp)
-                                .height(100.dp)){
-                            Image(
-                                painter = painterResource(id = R.drawable.foto_londres),
-                                contentDescription = "",
-                                contentScale = ContentScale.Crop)
-                        }
                         Column (
                             modifier = Modifier
-                                .width(340.dp)
-                                .height(90.dp),
-
+                                .fillMaxWidth()
+                                .background(
+                                    color = Color.White
+                                )
+                                .padding(
+                                    vertical = 10.dp
+                                ),
+                            verticalArrangement = Arrangement.SpaceEvenly,
+                            horizontalAlignment = Alignment.CenterHorizontally
                         ){
-                            Column (
+                            Card (
                                 modifier = Modifier
-                                .width(340.dp),
-                                verticalArrangement = Arrangement.Center,
-                                horizontalAlignment = Alignment.Start){
-                                Text(
-                                    fontFamily = FontFamily.Default,
-                                    fontSize = 20.sp,
-                                    fontStyle = FontStyle.Normal,
-                                    fontWeight = FontWeight.Normal,
-                                    color = Color(0xffCF06F0),
-                                    text = "London, 2019")
-                            }
-                            Column {
-                                Text(
-                                    fontFamily = FontFamily.Default,
-                                    fontSize = 14.sp,
-                                    fontStyle = FontStyle.Normal,
-                                    fontWeight = FontWeight.Normal,
-                                    color = Color(0xff565454),
-                                    text = "London is the capital and largest city of  the United Kingdom, with a population of just under 9 million.")
+                                    .width(340.dp)
+                                    .height(120.dp)
+                            ){
+                                Image(
+                                    painter = if(it.imagem == null)painterResource(id = R.drawable.no_image) else it.imagem!!,
+                                    contentDescription = "",
+                                    contentScale = ContentScale.Crop)
                             }
                             Column (
                                 modifier = Modifier
                                     .width(340.dp),
-                                verticalArrangement = Arrangement.Center,
-                                horizontalAlignment = Alignment.End
-                                    ){
-                                Text(
-                                    fontFamily = FontFamily.Default,
-                                    fontSize = 14.sp,
-                                    fontStyle = FontStyle.Normal,
-                                    fontWeight = FontWeight.Normal,
-                                    color = Color(0xffCF06F0),
-                                    text = "18 Feb - 21 Feb")
+                                verticalArrangement = Arrangement.SpaceBetween,
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ){
+                                Column (
+                                    modifier = Modifier
+                                        .width(340.dp),
+                                    verticalArrangement = Arrangement.Center,
+                                    horizontalAlignment = Alignment.Start){
+                                    Text(
+                                        fontFamily = FontFamily.Default,
+                                        fontSize = 20.sp,
+                                        fontStyle = FontStyle.Normal,
+                                        fontWeight = FontWeight.Normal,
+                                        color = Color(0xffCF06F0),
+                                        text = "${it.destino}, ${it.dataChegada.year}")
+                                }
+                                Column {
+                                    Text(
+                                        fontFamily = FontFamily.Default,
+                                        fontSize = 14.sp,
+                                        fontStyle = FontStyle.Normal,
+                                        fontWeight = FontWeight.Normal,
+                                        color = Color(0xff565454),
+                                        text = it.descricao
+                                    )
+                                }
+                                Column (
+                                    modifier = Modifier
+                                        .width(340.dp),
+                                    verticalArrangement = Arrangement.Center,
+                                    horizontalAlignment = Alignment.End
+                                ){
+                                    Text(
+                                        fontFamily = FontFamily.Default,
+                                        fontSize = 14.sp,
+                                        fontStyle = FontStyle.Normal,
+                                        fontWeight = FontWeight.Normal,
+                                        color = Color(0xffCF06F0),
+                                        text = "${encurtartarData(it.dataChegada)}, ${encurtartarData(it.dataPartida)}"
+                                    )
+                                }
                             }
                         }
-//                        Spacer(
-//                            modifier = Modifier
-//                                .height(16.dp)
-//                        )
                     }
+
 
                 }
             }
