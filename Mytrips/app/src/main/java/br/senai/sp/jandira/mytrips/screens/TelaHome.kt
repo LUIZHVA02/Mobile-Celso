@@ -63,7 +63,7 @@ import br.senai.sp.jandira.mytrips.utils.encurtartarData
 import br.senai.sp.jandira.mytrips.utils.tratarData
 
 @Composable
-fun TelaHome() {
+fun TelaHome(controleDeNavegacao: NavHostController) {
     var pesquisaHomeState = remember {
         mutableStateOf("")
     }
@@ -259,27 +259,27 @@ fun TelaHome() {
             shape = RoundedCornerShape(20.dp),
             trailingIcon = {
                 IconButton(onClick = {
-                    viagens.forEach(){
+                    viagens.forEach() {
                         if (
-                                pesquisaHomeState.value == it.id.toString() ||
-                                pesquisaHomeState.value.equals(it.destino, ignoreCase = true) ||
-                                pesquisaHomeState.value.toUpperCase() in it.descricao.toUpperCase()||
+                            pesquisaHomeState.value == it.id.toString() ||
+                            pesquisaHomeState.value.equals(it.destino, ignoreCase = true) ||
+                            pesquisaHomeState.value.toUpperCase() in it.descricao.toUpperCase() ||
 
-                                pesquisaHomeState.value == it.dataChegada.toString() ||
-                                pesquisaHomeState.value == it.dataChegada.dayOfMonth.toString()||
-                                pesquisaHomeState.value.toUpperCase() == it.dataChegada.month.toString()||
-                                pesquisaHomeState.value == it.dataChegada.year.toString() ||
+                            pesquisaHomeState.value == it.dataChegada.toString() ||
+                            pesquisaHomeState.value == it.dataChegada.dayOfMonth.toString() ||
+                            pesquisaHomeState.value.toUpperCase() == it.dataChegada.month.toString() ||
+                            pesquisaHomeState.value == it.dataChegada.year.toString() ||
 
-                                pesquisaHomeState.value == it.dataPartida.toString() ||
-                                pesquisaHomeState.value == it.dataPartida.dayOfMonth.toString()||
-                                pesquisaHomeState.value.toUpperCase() == it.dataPartida.month.toString()||
-                                pesquisaHomeState.value == it.dataPartida.year.toString()
-                            ){
-                            println("${it.id}")
-                            println("${it.destino}")
-                            println("${it.descricao}")
-                            println("${tratarData(it.dataChegada)}")
-                            println("${tratarData(it.dataPartida)}")
+                            pesquisaHomeState.value == it.dataPartida.toString() ||
+                            pesquisaHomeState.value == it.dataPartida.dayOfMonth.toString() ||
+                            pesquisaHomeState.value.toUpperCase() == it.dataPartida.month.toString() ||
+                            pesquisaHomeState.value == it.dataPartida.year.toString()
+                        ) {
+                            println("id: ${it.id}")
+                            println("destino: ${it.destino}")
+                            println("descrição: ${it.descricao}")
+                            println("Data  de chegada: ${tratarData(it.dataChegada)}")
+                            println("Data de Partida: ${tratarData(it.dataPartida)}")
                         }
                     }
                 }) {
@@ -308,11 +308,11 @@ fun TelaHome() {
 
             )
         )
-        Column (
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(300.dp)
-        ){
+        ) {
             Text(
                 modifier = Modifier.padding(horizontal = 16.dp),
                 fontFamily = FontFamily.Default,
@@ -323,12 +323,12 @@ fun TelaHome() {
                 text = "Past Trips"
             )
             Spacer(modifier = Modifier.height(8.dp))
-            LazyColumn(modifier = Modifier
-                .fillMaxSize()){
-                items(viagens){
-
-
-                    Card (
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+            ) {
+                items(viagens) {
+                    Card(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(
@@ -342,8 +342,8 @@ fun TelaHome() {
                             .background(
                                 color = Color.White
                             ),
-                    ){
-                        Column (
+                    ) {
+                        Column(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .background(
@@ -354,35 +354,38 @@ fun TelaHome() {
                                 ),
                             verticalArrangement = Arrangement.SpaceEvenly,
                             horizontalAlignment = Alignment.CenterHorizontally
-                        ){
-                            Card (
+                        ) {
+                            Card(
                                 modifier = Modifier
                                     .width(340.dp)
                                     .height(120.dp)
-                            ){
+                            ) {
                                 Image(
-                                    painter = if(it.imagem == null)painterResource(id = R.drawable.no_image) else it.imagem!!,
+                                    painter = if (it.imagem == null) painterResource(id = R.drawable.no_image) else it.imagem!!,
                                     contentDescription = "",
-                                    contentScale = ContentScale.Crop)
+                                    contentScale = ContentScale.Crop
+                                )
                             }
-                            Column (
+                            Column(
                                 modifier = Modifier
                                     .width(340.dp),
                                 verticalArrangement = Arrangement.SpaceBetween,
                                 horizontalAlignment = Alignment.CenterHorizontally
-                            ){
-                                Column (
+                            ) {
+                                Column(
                                     modifier = Modifier
                                         .width(340.dp),
                                     verticalArrangement = Arrangement.Center,
-                                    horizontalAlignment = Alignment.Start){
+                                    horizontalAlignment = Alignment.Start
+                                ) {
                                     Text(
                                         fontFamily = FontFamily.Default,
                                         fontSize = 20.sp,
                                         fontStyle = FontStyle.Normal,
                                         fontWeight = FontWeight.Normal,
                                         color = Color(0xffCF06F0),
-                                        text = "${it.destino}, ${it.dataChegada.year}")
+                                        text = "${it.destino}, ${it.dataChegada.year}"
+                                    )
                                 }
                                 Column {
                                     Text(
@@ -394,19 +397,23 @@ fun TelaHome() {
                                         text = it.descricao
                                     )
                                 }
-                                Column (
+                                Column(
                                     modifier = Modifier
                                         .width(340.dp),
                                     verticalArrangement = Arrangement.Center,
                                     horizontalAlignment = Alignment.End
-                                ){
+                                ) {
                                     Text(
                                         fontFamily = FontFamily.Default,
                                         fontSize = 14.sp,
                                         fontStyle = FontStyle.Normal,
                                         fontWeight = FontWeight.Normal,
                                         color = Color(0xffCF06F0),
-                                        text = "${encurtartarData(it.dataChegada)}, ${encurtartarData(it.dataPartida)}"
+                                        text = "${encurtartarData(it.dataChegada)}, ${
+                                            encurtartarData(
+                                                it.dataPartida
+                                            )
+                                        }"
                                     )
                                 }
                             }
@@ -424,6 +431,6 @@ fun TelaHome() {
 @Composable
 fun TelaHomePreview() {
     MyTripsTheme {
-        TelaHome()
+//        TelaHome()
     }
 }

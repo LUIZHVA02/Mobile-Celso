@@ -30,11 +30,11 @@ class MainActivity : ComponentActivity() {
                     val controleDeNavegacao = rememberNavController()
                     NavHost(
                         navController = controleDeNavegacao,
-                        startDestination = "Cadastro"
+                        startDestination = "Login"
                     ){
                         composable(route = "Login"){ TelaLogin(controleDeNavegacao) }
                         composable(route = "Cadastro"){ TelaCadastro(controleDeNavegacao) }
-                        composable(route = "Home"){ TelaHome() }
+                        composable(route = "Home"){ TelaHome(controleDeNavegacao) }
                     }
                 }
             }
