@@ -1,13 +1,77 @@
 package br.senai.sp.jandira.mytrips.utils
 
+import android.bluetooth.BluetoothHidDeviceAppQosSettings
 import java.time.LocalDate
+import kotlin.math.tan
 
-fun encurtartarData(data: LocalDate): String {
+fun encurtartarData(data: String): String {
 
-    return "${data.dayOfMonth}  ${data.month.toString().substring(0,3).toLowerCase()}"
+    if (
+        data.substring(3,4).toLowerCase() == "01"||
+        data.substring(3,4).toLowerCase() == "02"||
+        data.substring(3,4).toLowerCase() == "03"||
+        data.substring(3,4).toLowerCase() == "04"||
+        data.substring(3,4).toLowerCase() == "05"||
+        data.substring(3,4).toLowerCase() == "06"||
+        data.substring(3,4).toLowerCase() == "07"||
+        data.substring(3,4).toLowerCase() == "08"||
+        data.substring(3,4).toLowerCase() == "09"||
+        data.substring(3,4).toLowerCase() == "10"||
+        data.substring(3,4).toLowerCase() == "11"||
+        data.substring(3,4).toLowerCase() == "12"
+        ){
+
+    }
+    if (
+        data.substring(5,6).toLowerCase() == "01"||
+        data.substring(5,6).toLowerCase() == "02"||
+        data.substring(5,6).toLowerCase() == "03"||
+        data.substring(5,6).toLowerCase() == "04"||
+        data.substring(5,6).toLowerCase() == "05"||
+        data.substring(5,6).toLowerCase() == "06"||
+        data.substring(5,6).toLowerCase() == "07"||
+        data.substring(5,6).toLowerCase() == "08"||
+        data.substring(5,6).toLowerCase() == "09"||
+        data.substring(5,6).toLowerCase() == "10"||
+        data.substring(5,6).toLowerCase() == "11"||
+        data.substring(5,6).toLowerCase() == "12"
+        ){
+
+    }
+    if (
+        data.substring(3,4).toLowerCase() == "01"||
+        data.substring(3,4).toLowerCase() == "02"||
+        data.substring(3,4).toLowerCase() == "03"||
+        data.substring(3,4).toLowerCase() == "04"||
+        data.substring(3,4).toLowerCase() == "05"||
+        data.substring(3,4).toLowerCase() == "06"||
+        data.substring(3,4).toLowerCase() == "07"||
+        data.substring(3,4).toLowerCase() == "08"||
+        data.substring(3,4).toLowerCase() == "09"||
+        data.substring(3,4).toLowerCase() == "10"||
+        data.substring(3,4).toLowerCase() == "11"||
+        data.substring(3,4).toLowerCase() == "12"
+
+        ){
+
+    }
+    return "  ${data.substring(0,3).toLowerCase()}"
 }
 
-fun tratarData(data: LocalDate): String{
+fun verificarTelefone(telefone: String): Boolean{
+    var telefoneResposta = false
+    if (
+            telefone.substring(0) != "("||
+            telefone.substring(4) != ")"||
+            telefone.substring(10) != ")"
+        ){
+        telefoneResposta = true
+    }
+
+    return telefoneResposta
+}
+
+fun tratarData(data: String): String{
 
     var dataTratada: String = ""
 

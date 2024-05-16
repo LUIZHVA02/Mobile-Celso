@@ -259,29 +259,29 @@ fun TelaHome(controleDeNavegacao: NavHostController) {
             shape = RoundedCornerShape(20.dp),
             trailingIcon = {
                 IconButton(onClick = {
-                    viagens.forEach() {
-                        if (
-                            pesquisaHomeState.value == it.id.toString() ||
-                            pesquisaHomeState.value.equals(it.destino, ignoreCase = true) ||
-                            pesquisaHomeState.value.toUpperCase() in it.descricao.toUpperCase() ||
-
-                            pesquisaHomeState.value == it.dataChegada.toString() ||
-                            pesquisaHomeState.value == it.dataChegada.dayOfMonth.toString() ||
-                            pesquisaHomeState.value.toUpperCase() == it.dataChegada.month.toString() ||
-                            pesquisaHomeState.value == it.dataChegada.year.toString() ||
-
-                            pesquisaHomeState.value == it.dataPartida.toString() ||
-                            pesquisaHomeState.value == it.dataPartida.dayOfMonth.toString() ||
-                            pesquisaHomeState.value.toUpperCase() == it.dataPartida.month.toString() ||
-                            pesquisaHomeState.value == it.dataPartida.year.toString()
-                        ) {
-                            println("id: ${it.id}")
-                            println("destino: ${it.destino}")
-                            println("descrição: ${it.descricao}")
-                            println("Data  de chegada: ${tratarData(it.dataChegada)}")
-                            println("Data de Partida: ${tratarData(it.dataPartida)}")
-                        }
-                    }
+//                    viagens.forEach() {
+//                        if (
+//                            pesquisaHomeState.value == it.id.toString() ||
+//                            pesquisaHomeState.value.equals(it.destino, ignoreCase = true) ||
+//                            pesquisaHomeState.value.toUpperCase() in it.descricao.toUpperCase() ||
+//
+//                            pesquisaHomeState.value == it.dataChegada.toString() ||
+//                            pesquisaHomeState.value == it.dataChegada.dayOfMonth.toString() ||
+//                            pesquisaHomeState.value.toUpperCase() == it.dataChegada.month.toString() ||
+//                            pesquisaHomeState.value == it.dataChegada.year.toString() ||
+//
+//                            pesquisaHomeState.value == it.dataPartida.toString() ||
+//                            pesquisaHomeState.value == it.dataPartida.dayOfMonth.toString() ||
+//                            pesquisaHomeState.value.toUpperCase() == it.dataPartida.month.toString() ||
+//                            pesquisaHomeState.value == it.dataPartida.year.toString()
+//                        ) {
+//                            println("id: ${it.id}")
+//                            println("destino: ${it.destino}")
+//                            println("descrição: ${it.descricao}")
+//                            println("Data  de chegada: ${tratarData(it.dataChegada)}")
+//                            println("Data de Partida: ${tratarData(it.dataPartida)}")
+//                        }
+//                    }
                 }) {
                     Icon(
                         imageVector = Icons.Default.Search,
@@ -384,7 +384,7 @@ fun TelaHome(controleDeNavegacao: NavHostController) {
                                         fontStyle = FontStyle.Normal,
                                         fontWeight = FontWeight.Normal,
                                         color = Color(0xffCF06F0),
-                                        text = "${it.destino}, ${it.dataChegada.year}"
+                                        text = "${it.destino}, ${it.dataChegada}"
                                     )
                                 }
                                 Column {
@@ -409,11 +409,7 @@ fun TelaHome(controleDeNavegacao: NavHostController) {
                                         fontStyle = FontStyle.Normal,
                                         fontWeight = FontWeight.Normal,
                                         color = Color(0xffCF06F0),
-                                        text = "${encurtartarData(it.dataChegada)}, ${
-                                            encurtartarData(
-                                                it.dataPartida
-                                            )
-                                        }"
+                                        text = "${it.dataChegada}, ${it.dataPartida}"
                                     )
                                 }
                             }

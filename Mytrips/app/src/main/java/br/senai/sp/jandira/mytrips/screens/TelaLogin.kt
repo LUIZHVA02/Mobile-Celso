@@ -40,6 +40,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.senai.sp.jandira.mytrips.R
+import br.senai.sp.jandira.mytrips.model.Usuario
+import br.senai.sp.jandira.mytrips.repository.UsuarioRepository
 import br.senai.sp.jandira.mytrips.ui.theme.MyTripsTheme
 
 @Composable
@@ -52,6 +54,7 @@ fun TelaLogin(controleDeNavegacao: NavHostController) {
     }
     val contexto = LocalContext.current
 
+    val uR = UsuarioRepository(LocalContext.current)
     Column(
         modifier = Modifier
             .background(Color.White)
@@ -192,10 +195,6 @@ fun TelaLogin(controleDeNavegacao: NavHostController) {
                             value = senhaLoginState.value,
                             onValueChange = {
                                 senhaLoginState.value = it
-                                Log.i(
-                                    "SENHA",
-                                    "VALOR:$senhaLoginState"
-                                )
                             },
                             label = {
                                 Text(
@@ -241,7 +240,16 @@ fun TelaLogin(controleDeNavegacao: NavHostController) {
                     ) {
                         Button(
                             onClick = {
-                                controleDeNavegacao.navigate("Home")
+                                val usuario = Usuario(
+                                    email = emailLoginState.value,
+                                    senha = senhaLoginState.value
+                                )
+                                val respostaValidacao = uR.validarLoginEmailSenha(usuario)
+                                if (
+                                    respostaValidacao != null
+                                ){
+                                    controleDeNavegacao.navigate("Home")
+                                }
                             },
                             modifier = Modifier
                                 .width(170.dp)

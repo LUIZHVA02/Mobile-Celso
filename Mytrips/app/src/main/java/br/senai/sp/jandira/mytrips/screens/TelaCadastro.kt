@@ -34,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
@@ -45,7 +46,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.senai.sp.jandira.mytrips.R
+import br.senai.sp.jandira.mytrips.model.Usuario
+import br.senai.sp.jandira.mytrips.repository.UsuarioRepository
 import br.senai.sp.jandira.mytrips.ui.theme.MyTripsTheme
+import br.senai.sp.jandira.mytrips.utils.verificarTelefone
 
 @Composable
 fun TelaCadastro(controleDeNavegacao: NavHostController) {
@@ -64,6 +68,9 @@ fun TelaCadastro(controleDeNavegacao: NavHostController) {
     var checkBoxSignUpState = remember {
         mutableStateOf(false)
     }
+
+    val uR = UsuarioRepository(LocalContext.current)
+
     Column(
         modifier = Modifier
             .background(Color.White)
@@ -254,6 +261,8 @@ fun TelaCadastro(controleDeNavegacao: NavHostController) {
                             value = foneSignUpState.value,
                             onValueChange = {
                                 foneSignUpState.value = it
+
+
                             },
                             label = {
                                 Text(
@@ -264,6 +273,17 @@ fun TelaCadastro(controleDeNavegacao: NavHostController) {
                                     fontStyle = FontStyle.Normal,
                                     fontWeight = FontWeight.Light,
                                     text = "Telefone"
+                                )
+                            },
+                            placeholder = {
+                                Text(
+                                    modifier = Modifier
+                                        .padding(start = 10.dp),
+                                    fontFamily = FontFamily.Default,
+                                    fontSize = 20.sp,
+                                    fontStyle = FontStyle.Normal,
+                                    fontWeight = FontWeight.Light,
+                                    text = "Insira telefone no formato '(000)12345-6789'!"
                                 )
                             },
                             keyboardOptions = KeyboardOptions(
@@ -419,7 +439,18 @@ fun TelaCadastro(controleDeNavegacao: NavHostController) {
                             ) {
                                 Button(
                                     onClick = {
-                                              controleDeNavegacao.navigate("Home")
+                                        if(verificarTelefone(foneSignUpState.value)){
+                                            val usuario = Usuario(
+                                                nome = nomeSignUpState.value,
+                                                telefone = foneSignUpState.value,
+                                                email = emailSignUpState.value,
+                                                senha = senhaSignUpState.value,
+                                                isAdulto = checkBoxSignUpState.value
+                                            )
+                                            uR.salvar(usuario)
+
+                                            controleDeNavegacao.navigate("Home")
+                                        }
                                     },
                                     modifier = Modifier
                                         .fillMaxWidth()

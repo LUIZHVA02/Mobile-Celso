@@ -19,14 +19,20 @@ interface UsuariosDAO {
     fun excluir(usuario: Usuario):Int
 
     @Query("select *from tbl_usuarios order by nome;")
-    fun listarTodosOsContatos():List<Usuario>
+    fun listarTodosOsUsuarios():List<Usuario>
 
-//    @Query("select *from tbl_contatos where id = :id;")
-//    fun buscarContatosPorId(id: Long):Contato
-//
-//    @Query("select *from tbl_contatos where nome like :nome order by nome;")
-//    fun buscarContatosPeloNome(nome: String):Contato
-//
-//    @Query("select *from tbl_contatos where is_amigo is true;")
-//    fun buscarContatosPorAmigos(isAmigo: Boolean):Contato
+    @Query("select *from tbl_usuarios where id = :id;")
+    fun buscarUsuarioPorId(id: Long):Usuario
+
+    @Query("select *from tbl_usuarios where nome like :nome order by nome;")
+    fun buscarUsuariosPeloNome(nome: String):Usuario
+
+    @Query("select *from tbl_usuarios where email = :email and senha = :senha;")
+    fun buscarUsuarioPeloEmailSenha(email: String, senha: String):Usuario
+
+    @Query("select *from tbl_usuarios where nome = :nome and senha = :senha;")
+    fun buscarUsuarioPeloNomelSenha(nome: String, senha: String):Usuario
+
+    @Query("select *from tbl_usuarios where is_adulto = 1;")
+    fun buscarUsuariosPorAdultos(isAdulto: String):Usuario
 }
