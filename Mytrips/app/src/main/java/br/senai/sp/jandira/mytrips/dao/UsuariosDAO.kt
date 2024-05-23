@@ -31,8 +31,8 @@ interface UsuariosDAO {
     fun buscarUsuarioPeloEmailSenha(email: String, senha: String):Usuario
 
     @Query("select *from tbl_usuarios where nome = :nome and senha = :senha;")
-    fun buscarUsuarioPeloNomelSenha(nome: String, senha: String):Usuario
+    fun buscarUsuarioPeloNomeSenha(nome: String, senha: String):Usuario
 
-    @Query("select *from tbl_usuarios where is_adulto = 1;")
-    fun buscarUsuariosPorAdultos(isAdulto: String):Usuario
+//    @Query("select *from tbl_usuarios where is_adulto = '1';")
+//    fun buscarUsuariosPorAdultos()
 }

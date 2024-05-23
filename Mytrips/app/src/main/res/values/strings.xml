@@ -1,22 +1,26 @@
 <resources>
     <string name="app_name">My trips</string>
     <string name="user_name">Name:</string>
-    <string name="user_birth_date">Birth date:</string>
-    <string name="user_phone">Phone:</string>
+    <string name="user_phone">Phone Number:</string>
     <string name="user_email">E-mail:</string>
     <string name="user_password">Password:</string>
     <string name="sign_in_message">Please sign in to continue.</string>
+    <string name="sign_up_message_login">"Don’t have an account? "</string>
     <string name="sign_in">Sign In!</string>
     <string name="login">Login</string>
 
+    //Insira no formato '(000)12345-6789'!
+    <string name="sign_up_top_label">Sign up!</string>
+    <string name="sign_up_create_account_top_message">Create a new account!</string>
     <string name="sign_up_name">Name:</string>
-    <string name="sign_up_birth_date">Enter your birth date:</string>
-    <string name="sign_up_phone">Enter your phone number:</string>
-    <string name="sign_up_email">Enter your e-mail:</string>
-    <string name="sign_up_password">Enter your password:</string>
-    <string name="sign_up_confirmation_password">Enter your password again:</string>
-    <string name="sign_up_message">Already have an account</string>
-    <string name="sign_up">Sign up!</string>
+    <string name="sign_up_phone">Phone Number:</string>
+    <string name="sign_up_phone_message">Insert it like "(000)123–4567"!</string>
+    <string name="sign_up_email">E-mail:</string>
+    <string name="sign_up_password">Password:</string>
+    <string name="sign_up_is_adulto_label">Are you over 18?</string>
+    <string name="sign_up_create_account_bottom_message">Create Account</string>
+    <string name="sign_in_message_signup">Already have an account! </string>
+    <string name="sign_up_bottom_label">Sign up! </string>
 
     <string name="save_contact">Save Trip!</string>
 

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">My trips</string>
+    <string name="user_name">Nome:</string>
+    <string name="user_phone">Número de telefone:</string>
+    <string name="user_email">E-mail:</string>
+    <string name="user_password">Senha:</string>
+    <string name="sign_in_message">Por favor, entre para continuar.</string>
+    <string name="sign_up_message_login">"Não tem uma conta? "</string>
+    <string name="sign_in">Entrar</string>
+    <string name="login">Entrar</string>
+
+    //Insira no formato '(000)12345-6789'!
+    <string name="sign_up_top_label">Cadastrar-se!</string>
+    <string name="sign_up_create_account_top_message">Criar uma nova conta!</string>
+    <string name="sign_up_name">Nome:</string>
+    <string name="sign_up_phone">Número de telefone:</string>
+    <string name="sign_up_phone_message">Insira no formato "(000)12345–6789"!</string>
+    <string name="sign_up_email">E-mail:</string>
+    <string name="sign_up_password">Senha:</string>
+    <string name="sign_up_is_adulto_label">Você tem mais de 18 anos?</string>
+    <string name="sign_up_create_account_bottom_message">Criar conta!</string>
+    <string name="sign_in_message_signup">Já tem uma conta! </string>
+    <string name="sign_up_bottom_label">Cadastrar-se! </string>
+
+    <string name="save_contact">Save Trip!</string>
+</resources>

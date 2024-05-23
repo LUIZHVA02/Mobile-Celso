@@ -54,7 +54,7 @@ fun TelaLogin(controleDeNavegacao: NavHostController) {
     }
     val contexto = LocalContext.current
 
-    val uR = UsuarioRepository(LocalContext.current)
+    val uR = UsuarioRepository(contexto)
     Column(
         modifier = Modifier
             .background(Color.White)
@@ -302,7 +302,7 @@ fun TelaLogin(controleDeNavegacao: NavHostController) {
                             fontStyle = FontStyle.Normal,
                             fontWeight = FontWeight.Medium,
                             color = Color(0xffA09C9C),
-                            text = "Don’t have an account? "
+                            text = stringResource(id = R.string.sign_up_message_login)
                         )
                         Text(
                             fontFamily = FontFamily.Default,
@@ -310,7 +310,7 @@ fun TelaLogin(controleDeNavegacao: NavHostController) {
                             fontStyle = FontStyle.Normal,
                             fontWeight = FontWeight.Bold,
                             color = Color(0xffCF06F0),
-                            text = "Sign up!",
+                            text = stringResource(id = R.string.sign_up_bottom_label),
                             modifier = Modifier.clickable {
                                 controleDeNavegacao.navigate("Cadastro")
                             }

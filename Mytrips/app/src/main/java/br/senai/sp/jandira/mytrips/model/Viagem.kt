@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import br.senai.sp.jandira.mytrips.R
 import java.time.LocalDate
 
 @Entity(tableName = "tbl_viagens")
@@ -21,7 +22,4 @@ data class Viagem(
 
     @ColumnInfo(name = "data_partida", defaultValue = "1970-01-01")
     var dataPartida: String = "",
-
-
-    var imagem: Painter? = null
 )

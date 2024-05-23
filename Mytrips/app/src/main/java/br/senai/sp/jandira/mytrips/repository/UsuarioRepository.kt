@@ -17,7 +17,7 @@ class UsuarioRepository (context: Context){
         return db.excluir(usuario)
     }
 
-    fun listarTodosOsContatos():List<Usuario>{
+    fun listarTodosOsUsuarios():List<Usuario>{
         return db.listarTodosOsUsuarios()
     }
 
@@ -26,6 +26,10 @@ class UsuarioRepository (context: Context){
     }
 
     fun validarLoginNomeSenha(usuario: Usuario): Usuario {
-        return  db.buscarUsuarioPeloNomelSenha(nome = usuario.nome, senha = usuario.senha)
+        return  db.buscarUsuarioPeloNomeSenha(nome = usuario.nome, senha = usuario.senha)
     }
+
+//    fun buscarUsuariosPorIsAdulto(usuario: Usuario): Usuario{
+//        return db.buscarUsuariosPorAdultos(isAdulto = usuario.isAdulto)
+//    }
 }

@@ -1,12 +1,24 @@
 package br.senai.sp.jandira.mytrips.repository
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.painterResource
-import br.senai.sp.jandira.mytrips.R
+import android.content.Context
+import br.senai.sp.jandira.mytrips.dao.MyTripsDb
 import br.senai.sp.jandira.mytrips.model.Viagem
-import java.time.LocalDate
+class ViagemRepository (context: Context){
+    private val db = MyTripsDb.getBancoDeDados(context).viagensDao()
 
-class ViagemRepository {
+    fun salvar (viagem: Viagem):Long{
+        return db.salvar(viagem)
+    }
+    fun atualizar (viagem: Viagem):Int{
+        return db.atualizar(viagem)
+    }
+    fun excluir (viagem: Viagem):Int{
+        return db.excluir(viagem)
+    }
+
+    fun listarTodosAsViagens():List<Viagem>{
+        return db.listarTodasAsViagens()
+    }
 //    @Composable
 //    fun listarTodasAsViagens():List<Viagem>{
 //        val londres = Viagem(
