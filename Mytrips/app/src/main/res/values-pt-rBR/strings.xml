@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">My trips</string>
+    <string name="app_name">Minhas Viagens</string>
     <string name="user_name">Nome:</string>
     <string name="user_phone">Número de telefone:</string>
     <string name="user_email">E-mail:</string>
     <string name="user_password">Senha:</string>
+    <string name="error_message">Usuário ou senha incorretos</string>
     <string name="sign_in_message">Por favor, entre para continuar.</string>
     <string name="sign_up_message_login">"Não tem uma conta? "</string>
     <string name="sign_in">Entrar</string>

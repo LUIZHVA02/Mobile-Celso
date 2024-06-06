@@ -40,6 +40,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -65,9 +66,13 @@ fun TelaHome(controleDeNavegacao: NavHostController) {
 
     Scaffold(
         floatingActionButton = {
-            FloatingActionButton(onClick = {}) {
-                Icon(Icons.Default.Add, contentDescription = "Add")
-
+            FloatingActionButton(onClick = {
+                controleDeNavegacao.navigate("AddViagem")
+            }) {
+                Icon(
+                    Icons.Default.Add,
+                    contentDescription = "Add"
+                )
             }
         }
     ) { innerPadding ->
@@ -185,7 +190,7 @@ fun TelaHome(controleDeNavegacao: NavHostController) {
                                     fontStyle = FontStyle.Normal,
                                     fontWeight = FontWeight.Bold,
                                     color = Color.White,
-                                    text = "My Trips"
+                                    text = stringResource(id = R.string.app_name)
                                 )
                             }
                         }

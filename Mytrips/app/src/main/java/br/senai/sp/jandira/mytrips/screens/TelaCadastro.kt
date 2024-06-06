@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.mytrips.screens
 
+import android.annotation.SuppressLint
 import android.graphics.drawable.Icon
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -58,6 +59,7 @@ import br.senai.sp.jandira.mytrips.repository.UsuarioRepository
 import br.senai.sp.jandira.mytrips.ui.theme.MyTripsTheme
 import br.senai.sp.jandira.mytrips.utils.verificarTelefone
 
+@SuppressLint("SuspiciousIndentation")
 @Composable
 fun TelaCadastro(controleDeNavegacao: NavHostController) {
     var nomeSignUpState = remember {
@@ -76,7 +78,8 @@ fun TelaCadastro(controleDeNavegacao: NavHostController) {
         mutableStateOf(false)
     }
 
-    val uR = UsuarioRepository(LocalContext.current)
+    val contexto = LocalContext.current
+    val uR = UsuarioRepository(contexto)
 
             Column(
                 modifier = Modifier
@@ -506,7 +509,7 @@ fun TelaCadastro(controleDeNavegacao: NavHostController) {
                                             fontStyle = FontStyle.Normal,
                                             fontWeight = FontWeight.Bold,
                                             color = Color(0xffCF06F0),
-                                            text = stringResource(id = R.string.sign_up_bottom_label),
+                                            text = stringResource(id = R.string.sign_in_message_signup),
                                             modifier = Modifier.clickable {
                                                 controleDeNavegacao.navigate("Login")
                                             }

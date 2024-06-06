@@ -1,6 +1,7 @@
 package br.senai.sp.jandira.mytrips.screens
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -52,6 +53,11 @@ fun TelaLogin(controleDeNavegacao: NavHostController) {
     var senhaLoginState = remember {
         mutableStateOf("")
     }
+
+    var errorState = remember {
+        mutableStateOf("")
+    }
+
     val contexto = LocalContext.current
 
     val uR = UsuarioRepository(contexto)
@@ -249,6 +255,13 @@ fun TelaLogin(controleDeNavegacao: NavHostController) {
                                     respostaValidacao != null
                                 ){
                                     controleDeNavegacao.navigate("Home")
+                                } else {
+                                    errorState.value = "Usuario ou senha incorretos"
+                                    Toast.makeText(
+                                        contexto,
+                                        errorState.value,
+                                        Toast.LENGTH_LONG
+                                    ).show()
                                 }
                             },
                             modifier = Modifier
