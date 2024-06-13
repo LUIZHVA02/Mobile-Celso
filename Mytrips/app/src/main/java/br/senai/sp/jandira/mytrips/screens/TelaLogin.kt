@@ -57,6 +57,7 @@ fun TelaLogin(controleDeNavegacao: NavHostController) {
     var errorState = remember {
         mutableStateOf("")
     }
+    val error_message = stringResource(id = R.string.error_message)
 
     val contexto = LocalContext.current
 
@@ -256,7 +257,7 @@ fun TelaLogin(controleDeNavegacao: NavHostController) {
                                 ){
                                     controleDeNavegacao.navigate("Home")
                                 } else {
-                                    errorState.value = "Usuario ou senha incorretos"
+                                    errorState.value = error_message
                                     Toast.makeText(
                                         contexto,
                                         errorState.value,
