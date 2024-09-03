@@ -44,17 +44,9 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
-
-@Composable
-fun Greeting() {
-
-}
-
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun GreetingPreview() {
     MyTripsTheme {
-        Greeting()
     }
 }
